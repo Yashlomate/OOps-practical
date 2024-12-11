@@ -1,0 +1,713 @@
+Problem Statement:-Implement Factory design pattern for the given context. Consider Car building process, which 
+requires many steps from allocating accessories to final makeup. These steps should be written as 
+methods and should be called while creating an instance of a specific car type. Hatchback, Sedan, 
+SUV could be the subclasses of Car class. Car class and its subclasses, CarFactory and Test Factory 
+Pattern should be implemented. 
+
+CODE:-
+
+import java.util.Scanner;
+
+enum CarType { // Specify the car type
+    SMALL, SEDAN, LUXURY, SUV
+}
+
+abstract class Car1 { // Class for car
+    public Car1(CarType model) {
+        this.model = model;
+    }
+
+    // Do subclass level processing in this method
+    protected abstract void construct();
+
+    private CarType model = null;
+
+    public CarType getModel() {
+        return model;
+    }
+
+    public void setModel(CarType model) {
+        this.model = model;
+    }
+
+    public void build() {
+        System.out.println("Gathering components");
+        System.out.println("Building chassis");
+        System.out.println("Adding seats");
+        System.out.println("Installing Engine");
+        System.out.println("Painting");
+    }
+}
+
+class LuxuryCar extends Car1 { // Luxury car class
+    LuxuryCar() { // Constructor
+        super(CarType.LUXURY);
+        construct();
+    }
+
+    @Override
+    protected void construct() { // Building class
+        System.out.println("Building luxury car");
+    }
+
+    void showAvailable() { // Show available cars
+        Scanner sc = new Scanner(System.in);
+        int choice;
+        int continueChoice;
+
+        do {
+            System.out.println("\n\nChoose luxury car:");
+            System.out.println("1. Mercedes-Benz S-class"
+                    + "\n2. Jaguar XF"
+                    + "\n3. Land Rover Discovery"
+                    + "\n4. Exit");
+
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    build();
+                    System.out.println("\n\n---Mercedes-Benz S-class Specifications---");
+                    System.out.println("Price:: Rs.1.38 - 2.78 Cr");
+                    System.out.println("Seating Capacity:: 5");
+                    System.out.println("Fuel Economy:: 16km/l");
+                    System.out.println("Engine:: 2.9 L 6-cylinder diesel, 3.0 L V6");
+                    System.out.println("Mileage (upto):: 13.5 kmpl");
+                    System.out.println("Transmission:: Automatic");
+                    System.out.println("Boot Space:: 500");
+                    System.out.println("---------------------------");
+                    break;
+
+                case 2:
+                    build();
+                    System.out.println("\n\n---Jaguar XF Specifications---");
+                    System.out.println("Price:: Rs.55.67 Lakh");
+                    System.out.println("Seating Capacity:: 5");
+                    System.out.println("Fuel Capacity:: 74 L");
+                    System.out.println("Engine:: 2.0 L 4-cylinder");
+                    System.out.println("Mileage (upto):: 10.8 kmpl");
+                    System.out.println("Transmission:: Automatic");
+                    System.out.println("Boot Space:: 505");
+                    System.out.println("---------------------------");
+                    break;
+
+                case 3:
+                    build();
+                    System.out.println("\n\n---Land Rover Discovery Specifications---");
+                    System.out.println("Price:: Rs 75.59 Lakh onwards");
+                    System.out.println("Seating Capacity:: 5");
+                    System.out.println("Mileage (upto):: 12.05 kmpl");
+                    System.out.println("Transmission:: Automatic");
+                    System.out.println("Fuel Type:: Petrol");
+                    System.out.println("---------------------------");
+                    break;
+
+                case 4:
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println(" Please Enter Valid Choice");
+            }
+
+            // Ask user if they want to continue
+            System.out.print("Do you want to continue viewing luxury cars? (1 for Yes, 0 for No): ");
+            continueChoice = sc.nextInt();
+
+        } while (continueChoice == 1);
+    }
+}
+
+class SmallCar extends Car1 { // Small car class
+    SmallCar() { // Constructor
+        super(CarType.SMALL);
+        construct();
+    }
+
+    @Override
+    protected void construct() { // Building small car
+        System.out.println("Building small car");
+    }
+
+    void showAvailable() { // Show available cars
+        Scanner sc = new Scanner(System.in);
+        int choice;
+        int continueChoice;
+
+        do {
+            System.out.println("\n\nChoose small car:");
+            System.out.println("1. Maruti Alto"
+                    + "\n2. Kia Forte"
+                    + "\n3. Volkswagen Polo"
+                    + "\n4. Exit");
+
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    build();
+                    System.out.println("\n\n---Maruti Alto Specifications---");
+                    System.out.println("Price:: Rs 2.95 lakhs - Rs 4.41 lakhs");
+                    System.out.println("Seating Capacity:: 4,5");
+                    System.out.println("Engine:: 0.80 L 3-cylinder, 0.80 L 3-cylinder natural gas");
+                    System.out.println("Mileage (upto):: 22.05 to 31.59 km/kg");
+                    System.out.println("Transmission:: Manual");
+                    System.out.println("---------------------------");
+                    break;
+
+                case 2:
+                    build();
+                    System.out.println("\n\n---Honda Brio Specifications---");
+                    System.out.println("Price:: Rs 4.73 Lakh - 6.81 Lakh");
+                    System.out.println("Seating Capacity:: 5");
+                    System.out.println("Engine:: 1198 cc");
+                    System.out.println("Mileage (upto):: 22.0 kmpl");
+                    System.out.println("Transmission:: Manual & Automatic");
+                    System.out.println("---------------------------");
+                    break;
+
+                case 3:
+                    build();
+                    System.out.println("\n\n---Maruti Suzuki Wagon R Specifications---");
+                    System.out.println("Price:: Rs 4.51 Lakh onwards");
+                    System.out.println("Seating Capacity:: 5");
+                    System.out.println("Engine:: 1197 cc");
+                    System.out.println("Mileage (upto):: 20.52 to 32.52 kmpl");
+                    System.out.println("Transmission:: Manual");
+                    System.out.println("---------------------------");
+                    break;
+
+                case 4:
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println(" Please Enter Valid Choice");
+            }
+
+            // Ask user if they want to continue
+            System.out.print("Do you want to continue viewing small cars? (1 for Yes, 0 for No): ");
+            continueChoice = sc.nextInt();
+
+        } while (continueChoice == 1);
+    }
+}
+
+class SedanCar extends Car1 { // Sedan car class
+    SedanCar() { // Constructor
+        super(CarType.SEDAN);
+        construct();
+    }
+
+    @Override
+    protected void construct() {
+        System.out.println("Building sedan car");
+    }
+
+    void showAvailable() { // Show available cars
+        Scanner sc = new Scanner(System.in);
+        int choice;
+        int continueChoice;
+
+        do {
+            System.out.println("\n\nChoose sedan car:");
+            System.out.println("1. Maruti Suzuki Ciaz"
+                    + "\n2. Maruti Dzire"
+                    + "\n3. Hyundai Verna"
+                    + "\n4. Exit");
+
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    build();
+                    System.out.println("\n\n---Honda City Specifications---");
+                    System.out.println("Price:: Rs 10.9 lakhs - 14.8 lakhs");
+                    System.out.println("Seating Capacity:: 5");
+                    System.out.println("Engine:: 1498 cc");
+                    System.out.println("Mileage (upto):: 24.1 kmpl");
+                    System.out.println("Transmission:: Manual/Automatic");
+                    System.out.println("---------------------------");
+                    break;
+
+                case 2:
+                    build();
+                    System.out.println("\n\n---Maruti Dzire Specifications---");
+                    System.out.println("Price:: Rs 5.89 Lakh onwards");
+                    System.out.println("Seating Capacity:: 5");
+                    System.out.println("Engine:: 1197 cc");
+                    System.out.println("Mileage (upto):: 24.1 kmpl");
+                    System.out.println("Transmission:: Manual/Automatic");
+                    System.out.println("---------------------------");
+                    break;
+
+                case 3:
+                    build();
+                    System.out.println("\n\n---Hyundai Verna Specifications---");
+                    System.out.println("Price:: Rs 9.03 Lakh onwards");
+                    System.out.println("Seating Capacity:: 5");
+                    System.out.println("Engine:: 1497 cc");
+                    System.out.println("Mileage (upto):: 17.7 to 25 kmpl");
+                    System.out.println("Transmission:: Manual/Automatic");
+                    System.out.println("---------------------------");
+                    break;
+
+                case 4:
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println(" Please Enter Valid Choice");
+            }
+
+            // Ask user if they want to continue
+            System.out.print("Do you want to continue viewing sedan cars? (1 for Yes, 0 for No): ");
+            continueChoice = sc.nextInt();
+
+        } while (continueChoice == 1);
+    }
+}
+
+class SuvCar extends Car1 { // SUV car class
+    SuvCar() { // Constructor
+        super(CarType.SUV);
+        construct();
+    }
+
+    @Override
+    protected void construct() {
+        System.out.println("Building SUV car");
+    }
+
+    void showAvailable() { // Show available cars
+        Scanner sc = new Scanner(System.in);
+        int choice;
+        int continueChoice;
+
+        do {
+            System.out.println("\n\nChoose SUV car:");
+            System.out.println("1. Hyundai Creta"
+                    + "\n2. KIA Sonet"
+                    + "\n3. Nissan Magnite"
+                    + "\n4. Exit");
+
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    build();
+                    System.out.println("\n\n---Hyundai Creta---");
+                    System.out.println("Price:: Rs 9.03 Lakh onwards");
+                    System.out.println("Seating Capacity:: 5");
+                    System.out.println("Engine:: 1497 cc");
+                    System.out.println("Mileage (upto):: 17.7 to 25 kmpl");
+                    System.out.println("Transmission:: Manual/Automatic");
+                    System.out.println("---------------------------");
+                    break;
+
+                case 2:
+                    build();
+                    System.out.println("\n\n---KIA Sonet---");
+                    System.out.println("Price:: Rs 6.71 lakhs onwards");
+                    System.out.println("Seating Capacity:: 5");
+                    System.out.println("Fuel Type:: Petrol & Diesel");
+                    System.out.println("Engine:: 1.0 L 3-cylinder, 1.2 L 4-cylinder, 1.5 L 4-cylinder diesel");
+                    System.out.println("Mileage (upto):: 18.2 to 24.1 kmpl");
+                    System.out.println("Transmission:: Manual/Automatic");
+                    System.out.println("---------------------------");
+                    break;
+
+                case 3:
+                    build();
+                    System.out.println("\n\n---Nissan Magnite---");
+                    System.out.println("Price:: Rs 4.99 Lakh onwards");
+                    System.out.println("Seating Capacity:: 5");
+                    System.out.println("Fuel Type:: Petrol & Diesel");
+                    System.out.println("Engine:: 999 cc");
+                    System.out.println("Mileage (upto):: 17.7 to 19.42 kmpl");
+                    System.out.println("Transmission:: Manual/Automatic (CVT)");
+                    System.out.println("---------------------------");
+                    break;
+
+                case 4:
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println(" Please Enter Valid Choice");
+            }
+
+            // Ask user if they want to continue
+            System.out.print("Do you want to continue viewing SUV cars? (1 for Yes, 0 for No): ");
+            continueChoice = sc.nextInt();
+
+        } while (continueChoice == 1);
+    }
+}
+
+class CarFactory { // Car factory class
+    public static Car1 buildCar(CarType model) {
+        Car1 car = null;
+        switch (model) {
+            case SMALL:
+                SmallCar small = new SmallCar();
+                small.showAvailable();
+                break;
+
+            case SEDAN:
+                SedanCar sedan = new SedanCar();
+                sedan.showAvailable();
+                break;
+
+            case LUXURY:
+                LuxuryCar luxury = new LuxuryCar();
+                luxury.showAvailable();
+                break;
+
+            case SUV:
+                SuvCar suv = new SuvCar();
+                suv.showAvailable();
+                break;
+
+            default:
+                // throw some exception
+                break;
+        }
+        return car;
+    }
+}
+
+public class Factory {
+    public static void main(String[] args) {
+        int choice;
+        Scanner sc = new Scanner(System.in);
+        int x = 1;
+
+        do { // Menu driven car selection
+            System.out.println("\n\nChoose car:");
+            System.out.println("1. SMALL"
+                    + "\n2. SEDAN"
+                    + "\n3. LUXURY"
+                    + "\n4. SUV"
+                    + "\n5. Exit");
+
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1: // Small car
+                    CarFactory.buildCar(CarType.SMALL);
+                    break;
+
+                case 2: // Sedan car
+                    CarFactory.buildCar(CarType.SEDAN);
+                    break;
+
+                case 3: // Luxury car
+                    CarFactory.buildCar(CarType.LUXURY);
+                    break;
+
+                case 4: // SUV
+                    CarFactory.buildCar(CarType.SUV);
+                    break;
+
+                case 5:
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println(" Please Enter Valid Choice");
+                    break;
+            }
+        } while (x == 1);
+    }
+}
+
+
+OUTPUT:-
+
+Choose car:
+1. SMALL
+2. SEDAN
+3. LUXURY
+4. SUV
+5. Exit
+Enter choice: 1
+Building small car
+
+
+Choose small car:
+1. Maruti Alto
+2. Kia Forte
+3. Volkswagen Polo
+4. Exit
+Enter choice: 3
+Gathering components
+Building chassis
+Adding seats
+Installing Engine
+Painting
+
+
+---Maruti Suzuki Wagon R Specifications---
+Price:: Rs 4.51 Lakh onwards
+Seating Capacity:: 5
+Engine:: 1197 cc
+Mileage (upto):: 20.52 to 32.52 kmpl
+Transmission:: Manual
+---------------------------
+Do you want to continue viewing small cars? (1 for Yes, 0 for No): 1
+
+
+Choose small car:
+1. Maruti Alto
+2. Kia Forte
+3. Volkswagen Polo
+4. Exit
+Enter choice: 2
+Gathering components
+Building chassis
+Adding seats
+Installing Engine
+Painting
+
+
+---Honda Brio Specifications---
+Price:: Rs 4.73 Lakh - 6.81 Lakh
+Seating Capacity:: 5
+Engine:: 1198 cc
+Mileage (upto):: 22.0 kmpl
+Transmission:: Manual & Automatic
+---------------------------
+Do you want to continue viewing small cars? (1 for Yes, 0 for No): 1
+
+
+Choose small car:
+1. Maruti Alto
+2. Kia Forte
+3. Volkswagen Polo
+4. Exit
+Enter choice: 1
+Gathering components
+Building chassis
+Adding seats
+Installing Engine
+Painting
+
+
+---Maruti Alto Specifications---
+Price:: Rs 2.95 lakhs - Rs 4.41 lakhs
+Seating Capacity:: 4,5
+Engine:: 0.80 L 3-cylinder, 0.80 L 3-cylinder natural gas
+Mileage (upto):: 22.05 to 31.59 km/kg
+Transmission:: Manual
+---------------------------
+Do you want to continue viewing small cars? (1 for Yes, 0 for No): 0
+
+
+Choose car:
+1. SMALL
+2. SEDAN
+3. LUXURY
+4. SUV
+5. Exit
+Enter choice: 2
+Building sedan car
+
+
+Choose sedan car:
+1. Maruti Suzuki Ciaz
+2. Maruti Dzire
+3. Hyundai Verna
+4. Exit
+Enter choice: 2
+Gathering components
+Building chassis
+Adding seats
+Installing Engine
+Painting
+
+
+---Maruti Dzire Specifications---
+Price:: Rs 5.89 Lakh onwards
+Seating Capacity:: 5
+Engine:: 1197 cc
+Mileage (upto):: 24.1 kmpl
+Transmission:: Manual/Automatic
+---------------------------
+Do you want to continue viewing sedan cars? (1 for Yes, 0 for No): 1
+
+
+Choose sedan car:
+1. Maruti Suzuki Ciaz
+2. Maruti Dzire
+3. Hyundai Verna
+4. Exit
+Enter choice: 3
+Gathering components
+Building chassis
+Adding seats
+Installing Engine
+Painting
+
+
+---Hyundai Verna Specifications---
+Price:: Rs 9.03 Lakh onwards
+Seating Capacity:: 5
+Engine:: 1497 cc
+Mileage (upto):: 17.7 to 25 kmpl
+Transmission:: Manual/Automatic
+---------------------------
+Do you want to continue viewing sedan cars? (1 for Yes, 0 for No): 0
+
+
+Choose car:
+1. SMALL
+2. SEDAN
+3. LUXURY
+4. SUV
+5. Exit
+Enter choice: 3
+Building luxury car
+
+
+Choose luxury car:
+1. Mercedes-Benz S-class
+2. Jaguar XF
+3. Land Rover Discovery
+4. Exit
+Enter choice: 1
+Gathering components
+Building chassis
+Adding seats
+Installing Engine
+Painting
+
+
+---Mercedes-Benz S-class Specifications---
+Price:: Rs.1.38 - 2.78 Cr
+Seating Capacity:: 5
+Fuel Economy:: 16km/l
+Engine:: 2.9 L 6-cylinder diesel, 3.0 L V6
+Mileage (upto):: 13.5 kmpl
+Transmission:: Automatic
+Boot Space:: 500
+---------------------------
+Do you want to continue viewing luxury cars? (1 for Yes, 0 for No): 1
+
+
+Choose luxury car:
+1. Mercedes-Benz S-class
+2. Jaguar XF
+3. Land Rover Discovery
+4. Exit
+Enter choice: 3
+Gathering components
+Building chassis
+Adding seats
+Installing Engine
+Painting
+
+
+---Land Rover Discovery Specifications---
+Price:: Rs 75.59 Lakh onwards
+Seating Capacity:: 5
+Mileage (upto):: 12.05 kmpl
+Transmission:: Automatic
+Fuel Type:: Petrol
+---------------------------
+Do you want to continue viewing luxury cars? (1 for Yes, 0 for No): 0
+
+
+Choose car:
+1. SMALL
+2. SEDAN
+3. LUXURY
+4. SUV
+5. Exit
+Enter choice: 4
+Building SUV car
+
+
+Choose SUV car:
+1. Hyundai Creta
+2. KIA Sonet
+3. Nissan Magnite
+4. Exit
+Enter choice: 1
+Gathering components
+Building chassis
+Adding seats
+Installing Engine
+Painting
+
+
+---Hyundai Creta---
+Price:: Rs 9.03 Lakh onwards
+Seating Capacity:: 5
+Engine:: 1497 cc
+Mileage (upto):: 17.7 to 25 kmpl
+Transmission:: Manual/Automatic
+---------------------------
+Do you want to continue viewing SUV cars? (1 for Yes, 0 for No): 1
+
+
+Choose SUV car:
+1. Hyundai Creta
+2. KIA Sonet
+3. Nissan Magnite
+4. Exit
+Enter choice: 2
+Gathering components
+Building chassis
+Adding seats
+Installing Engine
+Painting
+
+
+---KIA Sonet---
+Price:: Rs 6.71 lakhs onwards
+Seating Capacity:: 5
+Fuel Type:: Petrol & Diesel
+Engine:: 1.0 L 3-cylinder, 1.2 L 4-cylinder, 1.5 L 4-cylinder diesel
+Mileage (upto):: 18.2 to 24.1 kmpl
+Transmission:: Manual/Automatic
+---------------------------
+Do you want to continue viewing SUV cars? (1 for Yes, 0 for No): 1
+
+
+Choose SUV car:
+1. Hyundai Creta
+2. KIA Sonet
+3. Nissan Magnite
+4. Exit
+Enter choice: 3
+Gathering components
+Building chassis
+Adding seats
+Installing Engine
+Painting
+
+
+---Nissan Magnite---
+Price:: Rs 4.99 Lakh onwards
+Seating Capacity:: 5
+Fuel Type:: Petrol & Diesel
+Engine:: 999 cc
+Mileage (upto):: 17.7 to 19.42 kmpl
+Transmission:: Manual/Automatic (CVT)
+---------------------------
+Do you want to continue viewing SUV cars? (1 for Yes, 0 for No): 0
+
+
+Choose car:
+1. SMALL
+2. SEDAN
+3. LUXURY
+4. SUV
+5. Exit
+Enter choice: 5

@@ -1,0 +1,322 @@
+INPUT:-
+
+package assign1;
+import java.util.*;
+
+// Base class representing a general employee
+class Employee {
+    // Attributes for the employee's personal details
+    String Emp_name;
+    String Emp_id;
+    String Address;
+    String Mail_id;
+    String Mobile_no;
+
+    // Constructor to initialize the employee's details
+    Employee(String Emp_name, String Emp_id, String Address, String Mail_id, String Mobile_no) {
+        this.Emp_name = Emp_name;
+        this.Emp_id = Emp_id;
+        this.Address = Address;
+        this.Mail_id = Mail_id;
+        this.Mobile_no = Mobile_no;
+    }
+
+    // Method to display the employee's details
+    void displayDetails() {
+        System.out.println("Employee Name: " + this.Emp_name);
+        System.out.println("Employee ID: " + this.Emp_id);
+        System.out.println("Address: " + this.Address);
+        System.out.println("Email ID: " + this.Mail_id);
+        System.out.println("Mobile No: " + this.Mobile_no);
+    }
+}
+
+// Derived class for Programmer, extending Employee
+class Programmer extends Employee {
+    double BasicPay; // Basic pay specific to the Programmer
+
+    // Constructor to initialize both the Employee and Programmer-specific attributes
+    Programmer(String Emp_name, String Emp_id, String Address, String Mail_id, String Mobile_no, double BasicPay) {
+        super(Emp_name, Emp_id, Address, Mail_id, Mobile_no);
+        this.BasicPay = BasicPay;
+    }
+
+    // Method to calculate the gross salary
+    double calculateGrossSalary() {
+        double DA = 0.97 * this.BasicPay; // Dearness Allowance
+        double HRA = 0.10 * this.BasicPay; // House Rent Allowance
+        return this.BasicPay + DA + HRA;
+    }
+
+    // Method to calculate the net salary
+    double calculateNetSalary() {
+        double PF = 0.12 * this.BasicPay; // Provident Fund deduction
+        double staffClubFund = 0.001 * this.BasicPay; // Staff Club Fund deduction
+        return calculateGrossSalary() - PF - staffClubFund;
+    }
+
+    // Method to generate and display the pay slip
+    void generatePaySlip() {
+        this.displayDetails();
+        System.out.println("Basic Pay: " + this.BasicPay);
+        System.out.println("Gross Salary: " + this.calculateGrossSalary());
+        System.out.println("Net Salary: " + this.calculateNetSalary());
+    }
+}
+
+// Derived class for Team Lead, extending Employee
+class TeamLead extends Employee {
+    double BasicPay; // Basic pay specific to the Team Lead
+
+    // Constructor to initialize both the Employee and Team Lead-specific attributes
+    TeamLead(String Emp_name, String Emp_id, String Address, String Mail_id, String Mobile_no, double BasicPay) {
+        super(Emp_name, Emp_id, Address, Mail_id, Mobile_no);
+        this.BasicPay = BasicPay;
+    }
+
+    // Method to calculate the gross salary
+    double calculateGrossSalary() {
+        double DA = 0.97 * this.BasicPay; // Dearness Allowance
+        double HRA = 0.10 * this.BasicPay; // House Rent Allowance
+        return this.BasicPay + DA + HRA;
+    }
+
+    // Method to calculate the net salary
+    double calculateNetSalary() {
+        double PF = 0.12 * this.BasicPay; // Provident Fund deduction
+        double staffClubFund = 0.001 * this.BasicPay; // Staff Club Fund deduction
+        return calculateGrossSalary() - PF - staffClubFund;
+    }
+
+    // Method to generate and display the pay slip
+    void generatePaySlip() {
+        this.displayDetails();
+        System.out.println("Basic Pay: " + this.BasicPay);
+        System.out.println("Gross Salary: " + this.calculateGrossSalary());
+        System.out.println("Net Salary: " + this.calculateNetSalary());
+    }
+}
+
+// Derived class for Assistant Project Manager, extending Employee
+class AssistantProjectManager extends Employee {
+    double BasicPay; // Basic pay specific to the Assistant Project Manager
+
+    // Constructor to initialize both the Employee and Assistant Project Manager-specific attributes
+    AssistantProjectManager(String Emp_name, String Emp_id, String Address, String Mail_id, String Mobile_no, double BasicPay) {
+        super(Emp_name, Emp_id, Address, Mail_id, Mobile_no);
+        this.BasicPay = BasicPay;
+    }
+
+    // Method to calculate the gross salary
+    double calculateGrossSalary() {
+        double DA = 0.97 * this.BasicPay; // Dearness Allowance
+        double HRA = 0.10 * this.BasicPay; // House Rent Allowance
+        return this.BasicPay + DA + HRA;
+    }
+
+    // Method to calculate the net salary
+    double calculateNetSalary() {
+        double PF = 0.12 * this.BasicPay; // Provident Fund deduction
+        double staffClubFund = 0.001 * this.BasicPay; // Staff Club Fund deduction
+        return calculateGrossSalary() - PF - staffClubFund;
+    }
+
+    // Method to generate and display the pay slip
+    void generatePaySlip() {
+        this.displayDetails();
+        System.out.println("Basic Pay: " + this.BasicPay);
+        System.out.println("Gross Salary: " + this.calculateGrossSalary());
+        System.out.println("Net Salary: " + this.calculateNetSalary());
+    }
+}
+
+// Derived class for Project Manager, extending Employee
+class ProjectManager extends Employee {
+    double BasicPay; // Basic pay specific to the Project Manager
+
+    // Constructor to initialize both the Employee and Project Manager-specific attributes
+    ProjectManager(String Emp_name, String Emp_id, String Address, String Mail_id, String Mobile_no, double BasicPay) {
+        super(Emp_name, Emp_id, Address, Mail_id, Mobile_no);
+        this.BasicPay = BasicPay;
+    }
+
+    // Method to calculate the gross salary
+    double calculateGrossSalary() {
+        double DA = 0.97 * this.BasicPay; // Dearness Allowance
+        double HRA = 0.10 * this.BasicPay; // House Rent Allowance
+        return this.BasicPay + DA + HRA;
+    }
+
+    // Method to calculate the net salary
+    double calculateNetSalary() {
+        double PF = 0.12 * this.BasicPay; // Provident Fund deduction
+        double staffClubFund = 0.001 * this.BasicPay; // Staff Club Fund deduction
+        return calculateGrossSalary() - PF - staffClubFund;
+    }
+
+    // Method to generate and display the pay slip
+    void generatePaySlip() {
+        this.displayDetails();
+        System.out.println("Basic Pay: " + this.BasicPay);
+        System.out.println("Gross Salary: " + this.calculateGrossSalary());
+        System.out.println("Net Salary: " + this.calculateNetSalary());
+    }
+}
+
+// Main class to execute the program
+public class Employe {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input and processing for Programmer
+        System.out.println("Enter employee details for Programmer:");
+        System.out.print("Name: ");
+        String pName = sc.nextLine();
+        System.out.print("ID: ");
+        String pId = sc.nextLine();
+        System.out.print("Address: ");
+        String pAddress = sc.nextLine();
+        System.out.print("Email: ");
+        String pEmail = sc.nextLine();
+        System.out.print("Mobile: ");
+        String pMobile = sc.nextLine();
+        System.out.print("Basic Pay: ");
+        double pBasicPay = sc.nextDouble();
+        sc.nextLine(); // Consume the newline
+
+        // Create a Programmer object and generate pay slip
+        Programmer prog = new Programmer(pName, pId, pAddress, pEmail, pMobile, pBasicPay);
+        prog.generatePaySlip();
+
+        // Input and processing for Team Lead
+        System.out.println("\nEnter employee details for Team Lead:");
+        System.out.print("Name: ");
+        String tlName = sc.nextLine();
+        System.out.print("ID: ");
+        String tlId = sc.nextLine();
+        System.out.print("Address: ");
+        String tlAddress = sc.nextLine();
+        System.out.print("Email: ");
+        String tlEmail = sc.nextLine();
+        System.out.print("Mobile: ");
+        String tlMobile = sc.nextLine();
+        System.out.print("Basic Pay: ");
+        double tlBasicPay = sc.nextDouble();
+        sc.nextLine(); // Consume the newline
+
+        // Create a TeamLead object and generate pay slip
+        TeamLead tl = new TeamLead(tlName, tlId, tlAddress, tlEmail, tlMobile, tlBasicPay);
+        tl.generatePaySlip();
+
+        // Input and processing for Assistant Project Manager
+        System.out.println("\nEnter employee details for Assistant Project Manager:");
+        System.out.print("Name: ");
+        String apmName = sc.nextLine();
+        System.out.print("ID: ");
+        String apmId = sc.nextLine();
+        System.out.print("Address: ");
+        String apmAddress = sc.nextLine();
+        System.out.print("Email: ");
+        String apmEmail = sc.nextLine();
+        System.out.print("Mobile: ");
+        String apmMobile = sc.nextLine();
+        System.out.print("Basic Pay: ");
+        double apmBasicPay = sc.nextDouble();
+        sc.nextLine(); // Consume the newline
+
+        // Create an AssistantProjectManager object and generate pay slip
+        ProjectManager apm = new ProjectManager(apmName, apmId, apmAddress, apmEmail, apmMobile, apmBasicPay);
+        apm.generatePaySlip();
+        
+        // Input and processing for Project Manager
+        System.out.println("\nEnter employee details for Project Manager:");
+        System.out.print("Name: ");
+        String pmName = sc.nextLine();
+        System.out.print("ID: ");
+        String pmId = sc.nextLine();
+        System.out.print("Address: ");
+        String pmAddress = sc.nextLine();
+        System.out.print("Email: ");
+        String pmEmail = sc.nextLine();
+        System.out.print("Mobile: ");
+        String pmMobile = sc.nextLine();
+        System.out.print("Basic Pay: ");
+        double pmBasicPay = sc.nextDouble();
+        sc.nextLine(); // Consume the newline
+
+        // Create an ProjectManager object and generate pay slip
+        ProjectManager pm = new ProjectManager(pmName, pmId, pmAddress, pmEmail, pmMobile, pmBasicPay);
+        pm.generatePaySlip();
+
+    }
+}
+
+
+
+
+
+OUTPUT:-
+
+Enter employee details for Programmer:
+Name: Alex Jonas
+ID: AL1020
+Address: LA,USA
+Email: alex@gmail.com
+Mobile: 9876543210
+Basic Pay: 40000
+Employee Name: Alex Jonas
+Employee ID: AL1020
+Address: LA,USA
+Email ID: alex@gmail.com
+Mobile No: 9876543210
+Basic Pay: 40000.0
+Gross Salary: 82800.0
+Net Salary: 77960.0
+
+Enter employee details for Team Lead:
+Name: Cris Walker
+ID: CW1021
+Address: NY,USA
+Email: cris@gmail.com
+Mobile: 9182736450
+Basic Pay: 45000
+Employee Name: Cris Walker
+Employee ID: CW1021
+Address: NY,USA
+Email ID: cris@gmail.com
+Mobile No: 9182736450
+Basic Pay: 45000.0
+Gross Salary: 93150.0
+Net Salary: 87705.0
+
+Enter employee details for Assistant Project Manager:
+Name: Elliott Schmidt
+ID: ES1022
+Address: Washington DC,USA
+Email: elliott@gmail.com
+Mobile: 1928374650
+Basic Pay: 55000
+Employee Name: Elliott Schmidt
+Employee ID: ES1022
+Address: Washington DC,USA
+Email ID: elliott@gmail.com
+Mobile No: 1928374650
+Basic Pay: 55000.0
+Gross Salary: 113850.0
+Net Salary: 107195.0
+
+Enter employee details for Project Manager:
+Name: Charlotte Marsh
+ID: CM1023
+Address: Manhatten,NY,USA
+Email: Charlotte@gmail.com
+Mobile: 9922327488
+Basic Pay: 65000
+Employee Name: Charlotte Marsh
+Employee ID: CM1023
+Address: Manhatten,NY,USA
+Email ID: Charlotte@gmail.com
+Mobile No: 9922327488
+Basic Pay: 65000.0
+Gross Salary: 134550.0
+Net Salary: 126685.0

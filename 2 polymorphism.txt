@@ -1,0 +1,205 @@
+package polymorphism;
+import java.util.*;
+
+class Polymorphis {
+    String title, author;
+    int price, copies;
+    static int total = 0;
+
+    void showTotalSales() {
+        System.out.println("Total sale of the publication is: " + total);
+    }
+}
+
+class Book1 extends Polymorphis {
+    private int copies;
+
+    public void getData() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Book Details:");
+        System.out.println("Enter the title of the book:");
+        title = sc.nextLine();
+        System.out.println("Enter the author name:");
+        author = sc.nextLine();
+        System.out.println("Enter the price of the book:");
+        price = sc.nextInt();
+        System.out.println("Enter the number of copies:");
+        copies = sc.nextInt();
+    }
+
+    void orderCopies() {
+        System.out.println("No. of copies ordered: " + copies);
+    }
+
+    void showTotalSales() {
+        int sale = price * copies;
+        System.out.println("Sale is: " + sale);
+        total += sale;
+    }
+}
+
+class Magazine extends Polymorphis {
+    private int orderQuantities;
+    private int currentIssues;
+
+    public void getData() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Magazine details:");
+        System.out.println("Enter title of the magazine:");
+        title = sc.nextLine();
+        System.out.println("Enter ordered quantities:");
+        orderQuantities = sc.nextInt();
+        System.out.println("Enter current issues:");
+        currentIssues = sc.nextInt();
+        System.out.println("Enter the price of the magazine:");
+        price = sc.nextInt();
+    }
+
+    void receiveIssues() {
+        System.out.println("Current issues: " + currentIssues);
+    }
+
+    void showTotalSales() {
+        int sale = price * orderQuantities;
+        System.out.println("Sale is: " + sale);
+        total += sale;
+    }
+}
+
+public class BookSub {
+    public static void main(String[] args) {
+        int ch;
+        Scanner sc = new Scanner(System.in);
+        do {
+            System.out.println("Enter the choice:");
+            System.out.println("1: Book");
+            System.out.println("2: Magazine");
+            System.out.println("3: Show Total Sales");
+            System.out.println("4: Exit");
+            ch = sc.nextInt();
+            switch (ch) {
+                case 1:
+                    Book1 b = new Book1();
+                    b.getData();
+                    b.orderCopies();
+                    b.showTotalSales();
+                    break;
+
+                case 2:
+                    Magazine m = new Magazine();
+                    m.getData();
+                    m.receiveIssues();
+                    m.showTotalSales();
+                    break;
+
+                case 3:
+                    Polymorphis p = new Polymorphis();
+                    p.showTotalSales();
+                    break;
+
+                case 4:
+                    System.out.println("Exit");
+                    break;
+
+                default:
+                    System.out.println("Wrong choice");
+                    break;
+            }
+        } while (ch != 4);
+    }
+}
+
+
+
+
+OUTPUT:-
+
+Enter the choice:
+1:Book
+2:Magazine
+
+1
+Enter Book Details:
+Enter the title of the book:
+Forgotten Atlas
+Enter the author name:
+Shakespeare
+Enter the price of the book:
+250
+Enter the number of copies:
+1200
+No. of copies ordered: 1200
+Sale is: 300000
+
+Enter the choice:
+1:Book
+2:Magazine
+
+2
+Enter Magazine details:
+Enter title of the magazine:
+Chronicle India
+Enter ordered quantities:
+1000
+Enter current issues:
+500
+Enter the price of the magazine:
+100
+Current issues: 500
+Sale is: 100000
+
+
+
+
+
+
+
+***My Program*** 
+
+package polymorphism;
+
+import java.util.Scanner;
+
+abstract class Publication {
+    String title;
+    double price;
+
+    Publication(String title, double price) {
+        this.title = title;
+        this.price = price;
+    }
+
+    abstract void showDetails();
+}
+
+class Book extends Publication {
+    String author;
+    int pages;
+
+    Book(String title, String author, double price, int pages) {
+        super(title, price);
+        this.author = author;
+        this.pages = pages;
+    }
+
+    @Override
+    void showDetails() {
+        System.out.println("Book Details:");
+        System.out.println("Title: " + title);
+        System.out.println("Author: " + author);
+        System.out.println("Price: $" + price);
+        System.out.println("Pages: " + pages);
+    }
+}
+
+public class PublicationApp {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        Publication book = new Book("Java Programming", "Alice Smith", 29.99, 500);
+
+        book.showDetails();
+    }
+}
+
+

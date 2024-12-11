@@ -1,0 +1,124 @@
+CODE:-
+
+package exceptionHandle;
+import java.util.*;
+
+public class ExceptionHandle {
+
+    void arithmetic() {
+        Scanner sc = new Scanner(System.in);
+        try {
+            System.out.println("Enter 2 numbers");
+            System.out.println("First number:");
+            int num1 = sc.nextInt();
+            System.out.println("Second number:");
+            int num2 = sc.nextInt();
+            
+            int data = num1 / num2;
+            System.out.println("The Quotient is: " + data);    
+        } catch (ArithmeticException a) {
+            System.out.println(a);
+            System.out.println("Dividing by zero is invalid!!!");
+        } 
+    }
+
+    void numberformat() {
+        Scanner sc = new Scanner(System.in);
+        try {
+            System.out.println("Enter number:");
+            String x = sc.next();
+            System.out.println("Number: " + Integer.parseInt(x));
+        } catch (NumberFormatException n) {
+            System.err.println(n);
+            System.out.println("Wrong input format, please enter an integer!!!");
+        }
+    }
+    
+    void arrayindex() {
+        try {
+            int[] arr = {1, 2, 3};
+            System.out.println("Accessing 5th element: " + arr[4]);
+        } catch (ArrayIndexOutOfBoundsException ai) {
+            System.out.println(ai);
+            System.out.println("Array index out of bounds!!!");
+        }
+    }
+
+    public static void main(String[] args) {
+        ExceptionHandle eh = new ExceptionHandle();
+        Scanner s = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("Menu\n1. Handle Arithmetic Exception\n2. Handle Number Format Exception\n3. Handle Array Index Out of Bound Exception \n4. Exit");
+            System.out.println("Enter your choice:");
+            int ch = s.nextInt();
+
+            switch (ch) {
+                case 1:
+                    eh.arithmetic();
+                    break;
+                case 2:
+                    eh.numberformat();
+                    break;
+                case 3:
+                    eh.arrayindex();
+                    break;
+                case 4:
+                    System.out.println("Exiting...");
+                    return;  // Exit the program
+                default:
+                    System.out.println("Invalid choice! Please enter a valid option.");
+            }
+        }
+    }
+}
+
+
+OUTPUT:--
+
+Menu
+1. Handle Arithmetic Exception
+2. Handle Number Format Exception
+3. Handle Array Index Out of Bound Exception 
+4. Exit
+Enter your choice:
+1
+Enter 2 numbers
+First number:
+5
+Second number:
+0
+java.lang.ArithmeticException: / by zero
+Dividing by zero is invalid!!!
+
+Menu
+1. Handle Arithmetic Exception
+2. Handle Number Format Exception
+3. Handle Array Index Out of Bound Exception 
+4. Exit
+Enter your choice:
+2
+Enter number:
+hello
+java.lang.NumberFormatException: For input string: "hello"
+Wrong input format, please enter an integer!!!
+
+Menu
+1. Handle Arithmetic Exception
+2. Handle Number Format Exception
+3. Handle Array Index Out of Bound Exception 
+4. Exit
+Enter your choice:
+3
+java.lang.ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 3
+Array index out of bounds!!!
+
+Menu
+1. Handle Arithmetic Exception
+2. Handle Number Format Exception
+3. Handle Array Index Out of Bound Exception 
+4. Exit
+Enter your choice:
+4
+Exiting...
+

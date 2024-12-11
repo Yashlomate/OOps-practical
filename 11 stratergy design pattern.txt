@@ -1,0 +1,206 @@
+Problem Statement:-
+Implement and apply Strategy Design pattern for simple Shopping Cart where three payment 
+strategies are used such as Credit Card, PayPal, Bit Coin. Create an interface for strategy pattern 
+and give concrete implementation for payment. 
+
+CODE:-
+
+import java.util.Scanner;
+
+/* Interface PaymentStrategy defines the methods for various payment strategies. */
+interface PaymentStrategy {
+    void info(); // Method to collect payment information
+    void pay(String amount); // Method to process the payment
+}
+
+// Payment strategy using Bitcoin
+class BitcoinPaymentStrategy implements PaymentStrategy {
+    private String username;
+    private String QRcode;
+    private String password;
+
+    public void info() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter username:");
+        username = sc.next();
+
+        System.out.println("Enter QR code:");
+        QRcode = sc.next();
+
+        System.out.println("Enter password:");
+        password = sc.next();
+    }
+
+    public void pay(String amount) {
+        System.out.println("Payment of Rs. " + amount + " is successful using Bitcoin.");
+    }
+}
+
+// Payment strategy using Credit Card
+class CreditCardPaymentStrategy implements PaymentStrategy {
+    private String name;
+    private long cardNumber;
+    private int cvv;
+
+    public void info() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter name on card:");
+        name = sc.next();
+
+        System.out.println("Enter card number:");
+        cardNumber = sc.nextLong();
+
+        System.out.println("Enter CVV:");
+        cvv = sc.nextInt();
+    }
+
+    public void pay(String amount) {
+        System.out.println("Payment of Rs. " + amount + " is successful using Credit Card.");
+    }
+}
+
+// Payment strategy using PayPal
+class ByPayPalStrategy implements PaymentStrategy {
+    private String email;
+    private String password;
+
+    public void pay(String amount) {
+        System.out.println("Payment of Rs. " + amount + " is successful using PayPal.");
+    }
+
+    public void info() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter email-id:");
+        email = sc.next();
+
+        System.out.println("Enter password:");
+        password = sc.next();
+    }
+}
+
+// Context class to hold the payment strategy
+class PaymentContext {
+    private PaymentStrategy paymentStrategy;
+
+    public void setPaymentStrategy(PaymentStrategy strategy) {
+        this.paymentStrategy = strategy;
+    }
+
+    public PaymentStrategy getPaymentStrategy() {
+        return paymentStrategy;
+    }
+
+    public void info() {
+        paymentStrategy.info();
+    }
+
+    public void pay(String amount) {
+        paymentStrategy.pay(amount);
+    }
+}
+
+// Main class to execute the payment process
+public class Customer {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String continueChoice = "yes"; // Initialize to enter the loop
+
+        do {
+            // Menu to ask for mode of payment
+            System.out.println("Please enter Payment Type: 'CreditCard', 'Bitcoin', or 'PayPal'");
+            String paymentType = scanner.next();
+            System.out.println("Payment type is: " + paymentType);
+
+            // Enter amount
+            System.out.println("\nPlease enter Amount to Pay: ");
+            String amount = scanner.next();
+
+            // Create PaymentContext instance
+            PaymentContext ctx = new PaymentContext();
+
+            // Set the corresponding payment strategy based on customer choice
+            switch (paymentType.toLowerCase()) {
+                case "creditcard":
+                    ctx.setPaymentStrategy(new CreditCardPaymentStrategy());
+                    break;
+                case "bitcoin":
+                    ctx.setPaymentStrategy(new BitcoinPaymentStrategy());
+                    break;
+                case "paypal":
+                    ctx.setPaymentStrategy(new ByPayPalStrategy());
+                    break;
+                default:
+                    System.out.println("Invalid payment type selected.");
+                    continue; // Skip to the next iteration
+            }
+
+            // Display the selected payment strategy and process payment
+            System.out.println("PaymentContext has: " + ctx.getPaymentStrategy());
+            ctx.info();
+            ctx.pay(amount);
+
+            // Ask if the user wants to continue
+            System.out.println("\nDo you want to continue? (yes/no)");
+            continueChoice = scanner.next();
+        } while (continueChoice.equalsIgnoreCase("yes"));
+
+        System.out.println("Thank you for using the payment system. Goodbye!");
+    }
+}
+
+
+
+
+OUTPUT:-
+
+Please enter Payment Type: 'CreditCard', 'Bitcoin', or 'PayPal'
+CreditCard
+Payment type is: CreditCard
+
+Please enter Amount to Pay: 
+12000
+PaymentContext has: CreditCardPaymentStrategy@e580929
+Enter name on card:
+Ayush
+Enter card number:
+1234567890
+Enter CVV:
+123
+Payment of Rs. 12000 is successful using Credit Card.
+
+Do you want to continue? (yes/no)
+yes
+Please enter Payment Type: 'CreditCard', 'Bitcoin', or 'PayPal'
+Bitcoin
+Payment type is: Bitcoin
+
+Please enter Amount to Pay: 
+100000
+PaymentContext has: BitcoinPaymentStrategy@340f438e
+Enter username:
+Amigo@bit
+Enter QR code:
+1234
+Enter password:
+Amigo2@34
+Payment of Rs. 100000 is successful using Bitcoin.
+
+Do you want to continue? (yes/no)
+yes
+Please enter Payment Type: 'CreditCard', 'Bitcoin', or 'PayPal'
+PayPal
+Payment type is: PayPal
+
+Please enter Amount to Pay: 
+13000
+PaymentContext has: ByPayPalStrategy@5b464ce8
+Enter email-id:
+AyushKothadia@gmail.com
+Enter password:
+Ayush@123
+Payment of Rs. 13000 is successful using PayPal.
+
+Do you want to continue? (yes/no)
+no
+Thank you for using the payment system. Goodbye!

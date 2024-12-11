@@ -1,0 +1,243 @@
+Problem Statement:-Implement a generic program using any collection class to count the number of elements in a 
+collection that have a specific property such as even numbers, odd number, prime number and 
+palindromes.
+
+CODE:-
+
+
+package Template;
+
+import java.util.*;
+
+// Main class for the assignment
+public class Assignment_No7 {
+    static int count = 0; // Counter for matching conditions
+
+    // Method to check if a number is even or odd
+    static void even_odd(int n) {
+        if (n % 2 == 0) {
+            System.out.println(n + " is even");
+            count++; // Increment count for even numbers
+        } else {
+            System.out.println(n + " is odd");
+        }
+    }
+
+    // Method to check if a string is a palindrome
+    public static void palindrome(String str) {
+        String reverse = new StringBuilder(str).reverse().toString(); // Reverse the string
+        if (str.equals(reverse)) {
+            System.out.println("String is palindrome");
+            count++; // Increment count for palindromes
+        } else {
+            System.out.println("String is not palindrome");
+        }
+    }
+
+    // Method to check if a number is prime
+    public static void prime_number(int num) {
+        if (num <= 1) {
+            System.out.println(num + " is not prime"); // Handle numbers <= 1
+            return;
+        }
+        for (int i = 2; i <= Math.sqrt(num); i++) { // Check divisibility up to the square root of num
+            if (num % i == 0) {
+                System.out.println(num + " is not prime");
+                return;
+            }
+        }
+        System.out.println(num + " is prime");
+        count++; // Increment count for prime numbers
+    }
+
+    // Method to check the selected operation
+    public static void check(int ch, int x) {
+        switch (ch) {
+            case 1:
+                even_odd(x); // Check for even or odd
+                break;
+            case 2:
+                prime_number(x); // Check for prime number
+                break;
+            default:
+                System.out.println("Enter the correct option!");
+        }
+    }
+
+    // Method to handle number operations
+    static void number_op() {
+        int n, element, choice;
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Integer> nums = new ArrayList<>();
+
+        System.out.println("Enter the number of elements:");
+        n = sc.nextInt(); // e.g., n=4
+        System.out.println("Enter the elements:");
+
+        for (int i = 0; i < n; i++) {
+            element = sc.nextInt(); // Input each element
+            nums.add(element); // Add element to the list
+        }
+
+        // Display options for operations
+        System.out.println("Enter the operation to be performed:");
+        System.out.println("1. Odd or Even");
+        System.out.println("2. Prime Number");
+
+        choice = sc.nextInt(); // Get user choice
+        Iterator<Integer> itr = nums.iterator();
+        count = 0; // Reset count
+
+        while (itr.hasNext()) {
+            check(choice, itr.next()); // Check based on user choice
+        }
+
+        // Display results based on the choice
+        if (choice == 1) {
+            System.out.println("The number of Even numbers is " + count);
+            System.out.println("The number of Odd numbers is " + (nums.size() - count));
+        } else {
+            System.out.println("The number of Prime numbers is " + count);
+            System.out.println("The number of Non-prime numbers is " + (nums.size() - count));
+        }
+    }
+
+    // Method to handle string operations
+    static void string_op() {
+        int n;
+        String word;
+        Scanner sc = new Scanner(System.in);
+        ArrayList<String> words = new ArrayList<>();
+
+        System.out.println("Enter the number of elements:");
+        n = sc.nextInt(); // Get the number of strings
+        System.out.println("Enter the elements:");
+
+        for (int i = 0; i < n; i++) {
+            word = sc.next(); // Input each string
+            words.add(word); // Add string to the list
+        }
+
+        count = 0; // Reset count for palindromes
+        for (String w : words) {
+            palindrome(w); // Check each word for palindrome
+        }
+
+        System.out.println("The number of PALINDROMES is: " + count);
+    }
+
+    // Main method to run the program
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        boolean continueRunning = true; // Flag to control the loop
+
+        while (continueRunning) {
+            // Choose the type of List needed
+            System.out.println("Choose Type:");
+            System.out.println("1. String");
+            System.out.println("2. Integer");
+            int ch = sc.nextInt(); // User choice
+
+            // Call the appropriate method based on user choice
+            if (ch == 2) {
+                number_op(); // Calls Integer ArrayList
+            } else {
+                string_op(); // Calls String ArrayList
+            }
+
+            // Ask user if they want to continue
+            System.out.println("Do you want to continue? (yes/no)");
+            String response = sc.next(); // Get user response
+            if (!response.equalsIgnoreCase("yes")) {
+                continueRunning = false; // Exit the loop if user says no
+            }
+        }
+
+        System.out.println("Thank you for using the program!");
+    }
+}
+
+
+OUTPUT:-
+
+
+Choose Type:
+1. String
+2. Integer
+1
+Enter the number of elements:
+3
+Enter the elements:
+MAM
+NOON
+FUN
+String is palindrome
+String is palindrome
+String is not palindrome
+The number of PALINDROMES is: 2
+Do you want to continue? (yes/no)
+yes
+Choose Type:
+1. String
+2. Integer
+2
+Enter the number of elements:
+3
+Enter the elements:
+121
+1441
+3456
+Enter the operation to be performed:
+1. Odd or Even
+2. Prime Number
+1
+121 is odd
+1441 is odd
+3456 is even
+The number of Even numbers is 1
+The number of Odd numbers is 2
+Do you want to continue? (yes/no)
+yes
+Choose Type:
+1. String
+2. Integer
+2
+Enter the number of elements:
+3
+Enter the elements:
+121
+345
+666
+Enter the operation to be performed:
+1. Odd or Even
+2. Prime Number
+2
+121 is not prime
+345 is not prime
+666 is not prime
+The number of Prime numbers is 0
+The number of Non-prime numbers is 3
+Do you want to continue? (yes/no)
+yes
+Choose Type:
+1. String
+2. Integer
+2
+Enter the number of elements:
+3
+Enter the elements:
+12
+3
+467
+Enter the operation to be performed:
+1. Odd or Even
+2. Prime Number
+2
+12 is not prime
+3 is prime
+467 is prime
+The number of Prime numbers is 2
+The number of Non-prime numbers is 1
+Do you want to continue? (yes/no)
+no
+Thank you for using the program!

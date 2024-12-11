@@ -1,0 +1,184 @@
+Problem Statement:-
+Using concepts of Object-Oriented programming develop solution for any one application 
+1)   Banking system having following operations: 
+ 
+ 
+1. Create an account 
+2. Deposit money 
+3. Withdraw money 
+4. Honor daily withdrawal limit 
+5. Check the balance 
+6. Display Account information. 
+
+2)   Inventory management system having following operations : 
+1. List of all products 
+2. Display individual product information 
+3. Purchase
+4. Shipping 
+5. Balance stock
+6. Loss and Profit calculation. 
+
+
+CODE:-
+
+
+
+import java.util.Scanner;
+
+// Class to represent a bank account
+class Account {
+    protected String accountHolderName; // Name of the account holder
+    protected double balance; // Balance in the account
+
+    // Method to create an account
+    public void createAccount() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter Account Holder's Name: ");
+        accountHolderName = sc.nextLine(); // Get the account holder's name
+        balance = 0; // Initialize balance to 0
+        System.out.println("Account created successfully for " + accountHolderName);
+    }
+
+    // Method to deposit money
+    public void depositMoney() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter amount to deposit: ");
+        double amount = sc.nextDouble(); // Get the deposit amount
+        if (amount > 0) {
+            balance += amount; // Add amount to balance
+            System.out.println("Deposited: " + amount);
+        } else {
+            System.out.println("Invalid deposit amount!"); // Handle invalid amount
+        }
+    }
+
+    // Method to withdraw money
+    public void withdrawMoney() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter amount to withdraw: ");
+        double amount = sc.nextDouble(); // Get the withdrawal amount
+        if (amount > 0 && amount <= balance) {
+            balance -= amount; // Subtract amount from balance
+            System.out.println("Withdrew: " + amount);
+        } else {
+            System.out.println("Invalid withdrawal amount or insufficient funds!"); // Handle errors
+        }
+    }
+
+    // Method to check balance
+    public void checkBal() {
+        System.out.println("Current balance: " + balance); // Display the current balance
+    }
+
+    // Method to display account information
+    public void displayAcc() {
+        System.out.println("Account Holder: " + accountHolderName); // Display account holder's name
+        System.out.println("Current Balance: " + balance); // Display current balance
+    }
+}
+
+
+// Main class for the banking application
+public class Bank extends Account {
+
+    public static void main(String[] args) {
+        int ch = 0; // Variable to store the user's menu choice
+        System.out.println("Welcome to the bank menu\n");
+        Scanner sc = new Scanner(System.in);
+        Bank bank = new Bank(); // Create a Bank object
+
+        do {
+            // Display the menu options
+            System.out.println("1. Create Account");
+            System.out.println("2. Deposit Money");
+            System.out.println("3. Withdraw Money");
+            System.out.println("4. Check Balance");
+            System.out.println("5. Display Account Information");
+            System.out.println("6. Exit");
+            ch = sc.nextInt(); // Get user choice
+
+            // Process the user's choice
+            switch (ch) {
+                case 1:
+                    bank.createAccount(); // Create a new account
+                    break;
+                case 2:
+                    bank.depositMoney(); // Deposit money into the account
+                    break;
+                case 3:
+                    bank.withdrawMoney(); // Withdraw money from the account
+                    break;
+                case 4:
+                    bank.checkBal(); // Check account balance
+                    break;
+                case 5:
+                    bank.displayAcc(); // Display account information
+                    break;
+                case 6:
+                    System.out.println("Exiting... Thank you for using the bank!"); // Exit message
+                    break;
+                default:
+                    System.out.println("Invalid Input! Please choose again."); // Handle invalid input
+            }
+        } while (ch != 6); // Loop until the user chooses to exit
+        sc.close(); // Close the scanner
+    }
+}
+
+
+OUTPUT:-
+
+Welcome to the bank menu
+
+1. Create Account
+2. Deposit Money
+3. Withdraw Money
+4. Check Balance
+5. Display Account Information
+6. Exit
+1
+Enter Account Holder's Name: Ayush Kothadia             
+Account created successfully for Ayush Kothadia
+1. Create Account
+2. Deposit Money
+3. Withdraw Money
+4. Check Balance
+5. Display Account Information
+6. Exit
+2
+Enter amount to deposit: 5000
+Deposited: 5000.0
+1. Create Account
+2. Deposit Money
+3. Withdraw Money
+4. Check Balance
+5. Display Account Information
+6. Exit
+3
+Enter amount to withdraw: 3000
+Withdrew: 3000.0
+1. Create Account
+2. Deposit Money
+3. Withdraw Money
+4. Check Balance
+5. Display Account Information
+6. Exit
+4
+Current balance: 2000.0
+1. Create Account
+2. Deposit Money
+3. Withdraw Money
+4. Check Balance
+5. Display Account Information
+6. Exit
+5
+Account Holder: Ayush Kothadia
+Current Balance: 2000.0
+1. Create Account
+2. Deposit Money
+3. Withdraw Money
+4. Check Balance
+5. Display Account Information
+6. Exit
+6
+Exiting... Thank you for using the bank!

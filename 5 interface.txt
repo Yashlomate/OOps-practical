@@ -1,0 +1,228 @@
+/* Design and develop a context for given case study and implement an interface for Vehicles 
+Consider the example of vehicles like bicycle, car and bike. All Vehicles have common 
+functionalities such as Gear Change, Speed up and apply breaks. Make an interface and put all 
+these common functionalities. Bicycle, Bike, Car classes should be implemented for all these 
+functionalities in their own class in their own way. */
+
+CODE:-
+
+package interface1;
+
+import java.util.Scanner;
+
+// Define an interface Vehicle with common functionalities
+interface Vehicle {
+    void gearChange(int a);
+    void applyBreak(int a);
+    void speedUp(int a);
+}
+
+// Implement Bicycle class that adheres to the Vehicle interface
+class Bicycle implements Vehicle {
+    // Implements the gearChange method for Bicycle
+    public void gearChange(int a) {
+        System.out.println("Gear number: " + a);
+    }
+
+    // Implements the applyBreak method for Bicycle
+    public void applyBreak(int a) {
+        if (a == 1) {
+            System.out.println("Brake Applied!!");
+        } else {
+            System.out.println("Brake Not Applied!!");
+        }
+    }
+
+    // Implements the speedUp method for Bicycle
+    public void speedUp(int a) {
+        System.out.println("Speed is: " + a);
+        if (a > 40) {
+            System.out.println("Warning: Overspeeding! Please reduce speed.");
+        }
+    }
+}
+
+// Implement Bike class that adheres to the Vehicle interface
+class Bike implements Vehicle {
+    // Implements the gearChange method for Bike
+    public void gearChange(int a) {
+        System.out.println("Gear Number is: " + a);
+    }
+
+    // Implements the applyBreak method for Bike
+    public void applyBreak(int a) {
+        if (a == 1) {
+            System.out.println("Brake Applied!!");
+        } else {
+            System.out.println("Brake Not Applied!!");
+        }
+    }
+
+    // Implements the speedUp method for Bike
+    public void speedUp(int a) {
+        System.out.println("Speed is: " + a);
+        if (a > 40) {
+            System.out.println("Warning: Overspeeding! Please reduce speed.");
+        }
+    }
+}
+
+// Implement Car class that adheres to the Vehicle interface
+class Car implements Vehicle {
+    // Implements the gearChange method for Car
+    public void gearChange(int a) {
+        System.out.println("Gear Number is: " + a);
+    }
+
+    // Implements the applyBreak method for Car
+    public void applyBreak(int a) {
+        if (a == 1) {
+            System.out.println("Brake Applied!!");
+        } 
+        else 
+        {
+            System.out.println("Brake Not Applied!!");
+        }
+    }
+
+    // Implements the speedUp method for Car
+    public void speedUp(int a) {
+        System.out.println("Speed is: " + a);
+        if (a > 40) {
+            System.out.println("Warning: Overspeeding! Please reduce speed.");
+        }
+    }
+}
+
+// Main class to test the Vehicle implementations
+public class Veh1 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Vehicle v;
+        int choice, gear, brake, speed;
+
+        // Display options for vehicle types
+        System.out.println("STATUS of Vehicle\n1.Bicycle\n2.Bike\n3.Car\n4.Exit");
+
+        // Loop to get user input until the user decides to exit
+        do {
+            System.out.println("Enter the choice:");
+            choice = sc.nextInt();
+
+            // Proceed if the choice is for Bicycle, Bike, or Car
+            if (choice >= 1 && choice <= 3) {
+                System.out.println("Enter gear number:");
+                gear = sc.nextInt();
+
+                System.out.println("Apply brake? (1 for Yes, 0 for No):");
+                brake = sc.nextInt();
+                if(brake==1)
+                {
+                    System.out.println("Vehicle Stopped!!!");
+                    System.exit(0);
+                }
+
+                // Validate the speed input to ensure it's within the acceptable range
+                do {
+                    System.out.println("Enter speed (kmph):");
+                    speed = sc.nextInt();
+                    if (speed > 40) {
+                        System.out.println("Warning: Overspeeding! Please enter a speed of 40 or below.");
+                    }
+                } while (speed > 40);
+
+                // Instantiate the appropriate vehicle based on user's choice
+                switch (choice) {
+                    case 1:
+                        v = new Bicycle();
+                        break;
+                    case 2:
+                        v = new Bike();
+                        break;
+                    case 3:
+                        v = new Car();
+                        break;
+                    default:
+                        v = null;
+                }
+
+                // If a valid vehicle was selected, perform the operations
+                if (v != null) {
+                    v.gearChange(gear);
+                    v.applyBreak(brake);
+                    v.speedUp(speed);
+                }
+            } else if (choice == 4) {
+                // Exit if the choice is 4
+                System.out.println("Exit");
+            } else {
+                // Handle invalid choices
+                System.out.println("Wrong choice");
+            }
+        } while (choice != 4); // Repeat until the user chooses to exit
+
+        sc.close(); // Close the scanner
+    }
+}
+
+
+
+OUTPUT:-
+
+STATUS of Vehicle
+1.Bicycle
+2.Bike
+3.Car
+4.Exit
+
+Enter the choice:
+1
+Enter gear number:
+1
+Apply brake? (1 for Yes, 0 for No):
+0
+Enter speed (kmph):
+12
+Gear number: 1
+Brake Not Applied!!
+Speed is: 12
+
+Enter the choice:
+2
+Enter gear number:
+1
+Apply brake? (1 for Yes, 0 for No):
+0
+Enter speed (kmph):
+44
+Warning: Overspeeding! Please enter a speed of 40 or below.
+Enter speed (kmph):
+20
+Gear Number is: 1
+Brake Not Applied!!
+Speed is: 20
+
+Enter the choice:
+3
+Enter gear number:
+1
+Apply brake? (1 for Yes, 0 for No):
+0
+Enter speed (kmph):
+30
+Gear Number is: 1
+Brake Not Applied!!
+Speed is: 30
+
+Enter the choice:
+1
+Enter gear number:
+1
+Apply brake? (1 for Yes, 0 for No):
+1
+Vehicle Stopped!!!
+
+
+Enter the choice:
+4
+Exit

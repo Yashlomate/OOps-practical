@@ -1,0 +1,383 @@
+Problem statement:- Implement a program for maintaining a database of student records using Files.
+		Student has Student_id,name, Roll_no, Class, marks and address. Display the data for few 
+		students.
+		1. Create Database
+		2. Display Database 
+		3. Delete Records
+		4. Update Record
+		5. Search Record
+
+CODE:-
+
+package filehandling;
+import java.util.*;
+import java.io.*;
+
+public class Student {
+
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    String studentname; // name of student
+    int rollno, mob_no; // roll number and mobile number
+    float marks; // marks
+    PrintWriter pw = null; // writer to write data to file
+
+    // Method to create a new file
+    void createFile() {
+        try {
+            File file = new File("Student.txt");
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getName());
+            } else {
+                System.out.println("File already exists."+ file.getName());
+            }
+            String absolutePath = file.getAbsolutePath();			//to display path of our file
+            System.out.println("Absolute path: " + absolutePath);
+            
+        } catch (IOException e) {
+            System.out.println("An error occurred while creating the file: " + e.getMessage());
+        }
+    }
+
+    // Method to write data to the file
+    void writeDataToFile() {
+        try {
+            pw = new PrintWriter(new BufferedWriter(new FileWriter("Student.txt", true)));
+            Scanner sc = new Scanner(System.in);
+            while (true) {
+                System.out.print("\nEnter Student Name: ");
+                studentname = br.readLine();
+
+                System.out.print("Student Roll no: ");
+                rollno = Integer.parseInt(br.readLine());
+
+                System.out.print("Mobile Number (10 digits): ");
+                mob_no = (int) Long.parseLong(br.readLine());
+
+                System.out.print("Marks: ");
+                marks = Float.parseFloat(br.readLine());
+
+                // Save student data to the file
+                pw.println(studentname + "\t" + rollno + "\t" + marks + "\t" + mob_no);
+
+                System.out.println("Do you want to enter more records? (1) Yes (2) No");
+                if (sc.nextInt() != 1) {
+                    break; // Exit loop
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Exception Occurred: " + e.getMessage());
+        } finally {
+            closeFileResources();
+        }
+    }
+
+    // Method to display the data in the file
+    void display() {
+        try (BufferedReader file = new BufferedReader(new FileReader("Student.txt"))) {
+            String name;
+            while ((name = file.readLine()) != null) {
+                System.out.println(name);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("\nERROR: File not Found !!!");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // Method to search for a student by roll number
+    void search() {
+        try (BufferedReader file = new BufferedReader(new FileReader("Student.txt"))) {
+            String name;
+            int flag = 0;
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Enter the roll number of the student you want to search: ");
+            String searchRollNo = sc.next();
+            while ((name = file.readLine()) != null) {
+                String[] line = name.split("\t");
+                if (searchRollNo.equals(line[1])) {
+                    System.out.println("Record found: " + name);
+                    flag = 1;
+                    break;
+                }
+            }
+            if (flag == 0) {
+                System.out.println("Record not found.");
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("\nERROR: File not Found !!!");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // Method to modify a student's marks
+    void modify() {
+        try (BufferedReader file1 = new BufferedReader(new FileReader("Student.txt"));
+             PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("TempStudent.txt")))) {
+
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Enter the name of the student you want to update: ");
+            String searchname = sc.next();
+
+            String name;
+            boolean found = false;
+
+            while ((name = file1.readLine()) != null) {
+                String[] line = name.split("\t");
+                if (searchname.equalsIgnoreCase(line[0])) {
+                    System.out.println("Record found. Enter updated marks:");
+                    String up_mark = sc.next();
+                    pw.println(line[0] + "\t" + line[1] + "\t" + up_mark + "\t" + line[3]);
+                    found = true;
+                } else {
+                    pw.println(name);
+                }
+            }
+
+            if (found) {
+                System.out.println("Record updated successfully");
+            } else {
+                System.out.println("Record not found");
+            }
+        } catch (IOException e) {
+            System.out.println("Exception Occurred: " + e.getMessage());
+        }
+
+        // Replace old file with updated one
+        new File("Student.txt").delete();
+        new File("TempStudent.txt").renameTo(new File("Student.txt"));
+    }
+
+    // Method to clear all records in the file
+    void clearRecords() {
+        try {
+            PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("Student.txt")));
+            pw.close();
+            System.out.println("All Records cleared successfully!");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // Method to delete the file
+    void deleteFile() {
+        File file = new File("Student.txt");
+        if (file.exists()) {
+            if (file.delete()) {
+                System.out.println("File deleted successfully!");
+            } else {
+                System.out.println("Delete failed: Unable to delete the file. Make sure it's not being used or locked.");
+            }
+        } else {
+            System.out.println("Delete failed: File not found.");
+        }
+    }
+
+    // Method to close the PrintWriter or other resources
+    void closeFileResources() {
+        if (pw != null) {
+            pw.close();
+            System.out.println("File resources closed.");
+        }
+    }
+
+    public static void main(String[] args) {
+        Student s = new Student();
+
+        int choice;
+        Scanner sc = new Scanner(System.in);
+
+        do {
+            System.out.println("\n1. Create Database\n2. Write Data\n3. Display Database\n4. Search Records\n5. Modify Records\n6. Clear Records\n7. Delete File\n8. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    s.createFile();
+                    break;
+
+                case 2:
+                    s.writeDataToFile();
+                    break;
+
+                case 3:
+                    s.display();
+                    break;
+
+                case 4:
+                    s.search();
+                    break;
+
+                case 5:
+                    s.modify();
+                    break;
+
+                case 6:
+                    s.clearRecords();
+                    break;
+
+                case 7:
+                    s.deleteFile();
+                    break;
+
+                case 8:
+                    System.out.println("Exiting the program.");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+        } while (choice != 8);
+
+        sc.close();
+    }
+}
+
+
+
+
+
+OUTPUT:-
+
+
+1. Create Database
+2. Write Data
+3. Display Database
+4. Search Records
+5. Modify Records
+6. Clear Records
+7. Delete File
+8. Exit
+Enter your choice: 1
+File created: Student.txt
+Absolute path: C:\Users\vinit\eclipse-workspace\Exception\Student.txt
+
+1. Create Database
+2. Write Data
+3. Display Database
+4. Search Records
+5. Modify Records
+6. Clear Records
+7. Delete File
+8. Exit
+Enter your choice: 2
+
+Enter Student Name: Alex
+Student Roll no: 123
+Mobile Number (10 digits): 9876543210
+Marks: 50
+Do you want to enter more records? (1) Yes (2) No
+1
+
+Enter Student Name: Carolina
+Student Roll no: 98
+Mobile Number (10 digits): 9812763340
+Marks: 54
+Do you want to enter more records? (1) Yes (2) No
+1
+
+Enter Student Name: Smith
+Student Roll no: 66
+Mobile Number (10 digits): 9182736450
+Marks: 60
+Do you want to enter more records? (1) Yes (2) No
+2
+File resources closed.
+
+1. Create Database
+2. Write Data
+3. Display Database
+4. Search Records
+5. Modify Records
+6. Clear Records
+7. Delete File
+8. Exit
+Enter your choice: 3
+Alex	123	50.0	1286608618
+Carolina	98	54.0	1222828748
+Smith	66	60.0	592801858
+
+1. Create Database
+2. Write Data
+3. Display Database
+4. Search Records
+5. Modify Records
+6. Clear Records
+7. Delete File
+8. Exit
+Enter your choice: 4
+Enter the roll number of the student you want to search: 66
+Record found: Smith	66	60.0	592801858
+
+1. Create Database
+2. Write Data
+3. Display Database
+4. Search Records
+5. Modify Records
+6. Clear Records
+7. Delete File
+8. Exit
+Enter your choice: 5
+Enter the name of the student you want to update: carolina
+Record found. Enter updated marks:
+65
+Record updated successfully
+
+1. Create Database
+2. Write Data
+3. Display Database
+4. Search Records
+5. Modify Records
+6. Clear Records
+7. Delete File
+8. Exit
+Enter your choice: 3
+Alex	123	50.0	1286608618
+Carolina	98	65	1222828748
+Smith	66	60.0	592801858
+
+1. Create Database
+2. Write Data
+3. Display Database
+4. Search Records
+5. Modify Records
+6. Clear Records
+7. Delete File
+8. Exit
+Enter your choice: 6
+All Records cleared successfully!
+
+1. Create Database
+2. Write Data
+3. Display Database
+4. Search Records
+5. Modify Records
+6. Clear Records
+7. Delete File
+8. Exit
+Enter your choice: 3
+
+1. Create Database
+2. Write Data
+3. Display Database
+4. Search Records
+5. Modify Records
+6. Clear Records
+7. Delete File
+8. Exit
+Enter your choice: 7
+File deleted successfully!
+
+1. Create Database
+2. Write Data
+3. Display Database
+4. Search Records
+5. Modify Records
+6. Clear Records
+7. Delete File
+8. Exit
+Enter your choice: 8
+Exiting the program.
+
